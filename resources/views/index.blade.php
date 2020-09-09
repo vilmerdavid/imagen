@@ -64,10 +64,10 @@
             }
             color();
 
-        function procesarImagen(arg){
+        function l(arg){
             var canvas = document.getElementById('sketchpad');
             var dataURL = canvas.toDataURL();
-            
+            console.log(dataURL)
             swal({
                 title: "¿Confirmación?",
                 text: "Procesar firma.!",
@@ -100,6 +100,47 @@
         
             sketchpad.undo()
         }
+        
     </script>
+
+
+<script>
+    function b64ToUint8Array(b64Image) {
+        var img = atob(b64Image.split(',')[1]);
+        var img_buffer = [];
+        var i = 0;
+        while (i < img.length) {
+            img_buffer.push(img.charCodeAt(i));
+            i++;
+        }
+        return new Uint8Array(img_buffer);
+    }
+        
+
+    function procesarImagen(){
+        var canvas = document.getElementById('sketchpad');
+        var b64Image = canvas.toDataURL('image/jpeg');
+        var urlFoto="{{ route('procesarFirma') }}";
+        var u8Image  = b64ToUint8Array(b64Image);
+
+        var formData = new FormData();
+        formData.append("foto", new Blob([ u8Image ], {type: "image/jpg"}));
+        $.ajax({
+            url: urlFoto,
+            type: "POST",
+            data: formData,
+            processData: false,  // tell jQuery not to process the data
+            contentType: false,   // tell jQuery not to set contentType
+            success : function(json) {
+                console.log(json)
+            },
+            error : function(xhr, status) {
+                console.log(xhr)
+            },
+        });
+    }
+
+
+</script>
   </body>
 </html>
