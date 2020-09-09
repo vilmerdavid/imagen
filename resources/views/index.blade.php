@@ -118,8 +118,9 @@
         
 
     function procesarImagen(){
+        
         var canvas = document.getElementById('sketchpad');
-        var b64Image = canvas.toDataURL('image/jpeg');
+        var b64Image = canvas.toDataURL();
         var urlFoto="{{ route('procesarFirma') }}";
         var u8Image  = b64ToUint8Array(b64Image);
 

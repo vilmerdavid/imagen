@@ -39,18 +39,7 @@ class Index extends Controller
                 $user->save();
             }
         }
-
-
-
-        // if (preg_match('/^data:image\/(\w+);base64,/', $base64_image)) {
-        //     $data = substr($base64_image, strpos($base64_image, ',') + 1);
-        //     $data = base64_decode($data);
-        //     $nombreFoto=$user->id.'.jpg';
-        //     Storage::put("public/firmas/".$nombreFoto, $data);
-        //     $url = Storage::url("public/firmas/".$nombreFoto);
-        //     $user->firma=$url;
-        //     $user->save();
-        // }
-        return response()->json(['ok'=>'ok']);
+        
+        return response()->json($user);
     }
 }
